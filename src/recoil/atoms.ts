@@ -10,3 +10,8 @@ export const activeTowerState = atom<ActiveTower>({
     key: "activeTowerState",
     default: null,
 });
+
+export const discsNumbersState = atom<number>({
+    key: "discsNumbersState",
+    default: 3,
+});

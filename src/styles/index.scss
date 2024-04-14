@@ -51,15 +51,11 @@ body {
     white-space: nowrap;
     &:not([disabled]) {
         &:focus {
-            box-shadow:
-                0 0 0.25rem rgba(0, 0, 0, 0.5),
-                -0.125rem -0.01rem 1rem rgba(77, 84, 220, 0.455),
+            box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5), -0.125rem -0.01rem 1rem rgba(77, 84, 220, 0.455),
                 0.125rem 0.01rem 1rem rgba(153, 172, 234, 0.5);
         }
         &:hover {
-            box-shadow:
-                0 0 0.25rem rgba(0, 0, 0, 0.5),
-                -0.125rem -0.01rem 1rem rgba(77, 84, 220, 0.455),
+            box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5), -0.125rem -0.01rem 1rem rgba(77, 84, 220, 0.455),
                 0.125rem 0.01rem 1rem rgba(153, 172, 234, 0.5);
         }
     }
@@ -69,6 +65,7 @@ body {
     background: #515151;
     border-radius: 20px;
     width: 100%;
+    position: relative;
     &-game {
         display: flex;
         justify-content: center;
@@ -84,7 +81,13 @@ body {
                     color: $secondary-color;
                 }
                 &-win {
-                    font-size: 1.5em;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: 99;
+                    font-size: 2.5em;
+                    font-weight: bolder;
                     color: $secondary-color;
                 }
             }
@@ -92,12 +95,37 @@ body {
 
         &-options {
             display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
         }
     }
     &-playground {
         padding: 10px;
         display: flex;
         gap: 10px;
+    }
+}
+
+.select-disc {
+    -webkit-appearance: none;
+    outline: none;
+    font-size: 1rem;
+    box-sizing: border-box;
+    border-radius: 4px;
+    background: $primary-color;
+    border: 1px solid $secondary-color;
+    padding: 0.5em 3.5em 0.5em 1em;
+    background-image: linear-gradient(45deg, transparent 50%, $secondary-color 50%),
+        linear-gradient(135deg, $secondary-color 50%, transparent 50%),
+        linear-gradient(to right, $primary-color, $secondary-color);
+    background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px), calc(100% - 2.5em) 0.5em;
+    background-size: 5px 5px, 5px 5px, 1px 1.5em;
+    background-repeat: no-repeat;
+    color: white;
+    cursor: pointer;
+    &-label {
+        position: relative;
     }
 }
 
@@ -115,13 +143,13 @@ body {
         border-bottom: none;
         display: inline-block;
         vertical-align: bottom;
-        width: 20px;
+        width: 18px;
         border-radius: 5px 5px 0 0;
     }
     &-base {
         background-color: $tower-color;
         border: 1px solid black;
-        height: 20px;
+        height: 18px;
         width: 100%;
         vertical-align: bottom;
     }

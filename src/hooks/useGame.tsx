@@ -1,21 +1,17 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 import _ from "lodash";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 import { ActiveTower } from "@/types/general";
 import { TOWER_NUMBERS } from "@/utils/constants";
-import { activeTowerState, winState } from "@/recoil/atoms";
+import { activeTowerState, winState, discsNumbersState } from "@/recoil/atoms";
 
-const useGame = (discsNumbers: number) => {
-    const startTower = useMemo(
-        () => _.range(1, discsNumbers + 1),
-        [discsNumbers]
-    );
-    const initDisc = useMemo(
-        () =>
-            _.map(Array(TOWER_NUMBERS), (__, i) => (i === 0 ? startTower : [])),
-        [startTower]
+const useGame = () => {
+    const discsNumbers = useRecoilValue(discsNumbersState);
+    const startTower = _.range(1, discsNumbers + 1);
+    const initDisc = _.map(Array(TOWER_NUMBERS), (__, i) =>
+        i === 0 ? startTower : []
     );
     const [discs, setDiscs] = useState(initDisc);
     const [activeTower, setActiveTower] =
@@ -62,6 +58,7 @@ const useGame = (discsNumbers: number) => {
 
     return {
         discs,
+        discsNumbers,
         activeTower,
         winner,
         counterMove,

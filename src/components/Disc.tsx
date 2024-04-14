@@ -1,12 +1,12 @@
+import { useMemo } from "react";
 import { useRecoilValue } from "recoil";
 
 import { winState } from "@/recoil/atoms";
 import { DiscProps } from "@/types/general";
-import useWidth from "@/hooks/useWidth";
 
 const Disc = ({ id, size, topDisc, startDrag }: DiscProps) => {
     const winner = useRecoilValue(winState);
-    const width = useWidth(size);
+    const width = useMemo(() => size * 1.2 * 20, [size]);
     return (
         <div
             id={id}
@@ -14,6 +14,7 @@ const Disc = ({ id, size, topDisc, startDrag }: DiscProps) => {
             draggable={topDisc && !winner}
             onDragStart={startDrag}
             style={{
+                maxWidth: "180px",
                 width: `${width}px`,
             }}
         >

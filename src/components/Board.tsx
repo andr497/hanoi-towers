@@ -1,22 +1,29 @@
 import useGame from "@/hooks/useGame";
-import { BoardProps } from "@/types/general";
 
 import Tower from "./Tower";
+import SelectDisc from "./SelectDisc";
+import { useEffect } from "react";
 
-const Board = ({ discsNumbers }: BoardProps) => {
+const Board = () => {
     const {
         discs,
         winner,
         counterMove,
+        discsNumbers,
         handleDropDisc,
         handleRestartGame,
         handleStartTopDiscDrag,
-    } = useGame(discsNumbers);
+    } = useGame();
+
+    useEffect(() => {
+        handleRestartGame();
+    }, [discsNumbers]);
 
     return (
         <main className="board">
             <section className="board-game">
                 <aside className="board-game-options">
+                    <SelectDisc />
                     <button
                         className="btn btn-restart"
                         onClick={handleRestartGame}
@@ -37,7 +44,6 @@ const Board = ({ discsNumbers }: BoardProps) => {
                         id={`tower-${i + 1}`}
                         key={`tower-${i + 1}`}
                         discs={disc}
-                        maxSize={discsNumbers}
                         startTopDiscDrag={() => handleStartTopDiscDrag(i)}
                         dropDisc={() => {
                             if (winner) return;

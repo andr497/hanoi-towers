@@ -1,14 +1,10 @@
 import { DragEventHandler } from "react";
 
 // # Interfaces Type Props
-export interface BoardProps {
-    discsNumbers: number;
-}
 
 export interface TowerProps {
     id: number | string;
     discs: number[];
-    maxSize: number;
     startTopDiscDrag: DragEventHandler;
     dropDisc: DragEventHandler;
 }
