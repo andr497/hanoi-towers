@@ -33,9 +33,9 @@ const Board = () => {
                 </aside>
                 <hgroup className="board-game-info">
                     <span className="label-moves">Moves: {counterMove}</span>
-                    <span className="label-win">{`${
-                        winner ? "Well Done!!" : ""
-                    }`}</span>
+                    {winner && (
+                        <span className="label-win">{`Well Done!!`}</span>
+                    )}
                 </hgroup>
             </section>
             <section className="board-playground">

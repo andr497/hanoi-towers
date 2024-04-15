@@ -47,7 +47,6 @@ body {
     text-decoration: none;
     transition: box-shadow 0.2s ease-in-out;
     user-select: none;
-    touch-action: manipulation;
     white-space: nowrap;
     &:not([disabled]) {
         &:focus {
@@ -88,7 +87,9 @@ body {
                     z-index: 99;
                     font-size: 2.5em;
                     font-weight: bolder;
+                    text-shadow: 2px 1px 10px $primary-color;
                     color: $secondary-color;
+                    animation: fadeIn 300ms;
                 }
             }
         }
@@ -103,7 +104,19 @@ body {
     &-playground {
         padding: 10px;
         display: flex;
-        gap: 10px;
+        gap: 4px;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
     }
 }
 
@@ -136,6 +149,7 @@ body {
     align-items: center;
     position: relative;
     text-align: center;
+    width: 180px;
 
     &-pillar {
         background-color: $tower-color;
@@ -157,6 +171,10 @@ body {
 
 // FUNCTION TO MAKE DYNAMIC THE DISC ID
 @for $i from 1 through 8 {
+    #disc-#{$i} {
+        max-width: 180px;
+        width: $i * 1.2 * 20px;
+    }
     @if $i % 2 == 0 {
         #disc-#{$i} {
             color: rgb(156, 252, 248);
@@ -170,13 +188,19 @@ body {
     }
 }
 
+.dragging {
+    cursor: grabbing;
+}
+
 .disc {
     font-size: 14px;
     height: 20px;
     vertical-align: center;
     margin-bottom: -1px;
     border-radius: 4px;
-
+    &[draggable="true"] {
+        cursor: grab;
+    }
     &-group {
         width: 100%;
         display: flex;
@@ -191,5 +215,42 @@ body {
         font-weight: bold;
         pointer-events: none;
         user-select: none;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .board {
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        align-items: center;
+    }
+
+    .tower {
+        width: 100px;
+
+        &-pillar {
+            width: 10px;
+        }
+    }
+
+    .disc {
+        font-size: 12px;
+        height: 18px;
+
+        &-group {
+            margin: 0 0 21px 0;
+        }
+        &-label {
+            font-weight: normal;
+        }
+    }
+
+    @for $i from 1 through 8 {
+        #disc-#{$i} {
+            max-width: 100px;
+            width: $i * 1.1 * 10px;
+        }
     }
 }

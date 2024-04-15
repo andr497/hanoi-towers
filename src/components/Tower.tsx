@@ -5,11 +5,10 @@ const Tower = ({ id, discs, startTopDiscDrag, dropDisc }: TowerProps) => {
     return (
         <section
             className="tower"
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={dropDisc}
-            style={{
-                width: "180px",
+            onDragOver={(e) => {
+                e.preventDefault();
             }}
+            onDrop={dropDisc}
         >
             <div className="tower-pillar" style={{ height: 100 + 2.5 * 20 }} />
             <div className="tower-base" />
