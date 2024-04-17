@@ -1,8 +1,10 @@
+import { useEffect } from "react";
+
 import useGame from "@/hooks/useGame";
+import { DndContext, DragEndEvent, DragStartEvent } from "@dnd-kit/core";
 
 import Tower from "./Tower";
 import SelectDisc from "./SelectDisc";
-import { useEffect } from "react";
 
 const Board = () => {
     const {
@@ -12,11 +14,12 @@ const Board = () => {
         discsNumbers,
         handleDropDisc,
         handleRestartGame,
-        handleStartTopDiscDrag,
+        setActualTower,
     } = useGame();
 
     useEffect(() => {
         handleRestartGame();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [discsNumbers]);
 
     return (
@@ -38,20 +41,24 @@ const Board = () => {
                     )}
                 </hgroup>
             </section>
-            <section className="board-playground">
-                {discs.map((disc, i) => (
-                    <Tower
-                        id={`tower-${i + 1}`}
-                        key={`tower-${i + 1}`}
-                        discs={disc}
-                        startTopDiscDrag={() => handleStartTopDiscDrag(i)}
-                        dropDisc={() => {
-                            if (winner) return;
-                            handleDropDisc(i);
-                        }}
-                    />
-                ))}
-            </section>
+            <DndContext
+                onDragStart={(e: DragStartEvent) => {
+                    const actual = e.active.data.current!.tower;
+                    setActualTower(actual);
+                }}
+                onDragEnd={(e: DragEndEvent) => {
+                    if (winner) return;
+
+                    const dest = e.over!.data.current!.tower;
+                    handleDropDisc(dest);
+                }}
+            >
+                <section className="board-playground">
+                    {discs.map((disc, i) => (
+                        <Tower id={i} key={`tower-${i + 1}`} discs={disc} />
+                    ))}
+                </section>
+            </DndContext>
         </main>
     );
 };

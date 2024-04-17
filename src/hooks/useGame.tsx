@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 
 import { ActiveTower } from "@/types/general";
 import { TOWER_NUMBERS } from "@/utils/constants";
-import { activeTowerState, winState, discsNumbersState } from "@/recoil/atoms";
+import { activeTowerState, discsNumbersState, winState } from "@/recoil/atoms";
 
 const useGame = () => {
     const discsNumbers = useRecoilValue(discsNumbersState);
@@ -19,12 +19,11 @@ const useGame = () => {
     const [winner, setWinner] = useRecoilState(winState);
     const [counterMove, setCounterMove] = useState(0);
 
-    const handleStartTopDiscDrag = (actualTower: number) => {
+    const setActualTower = (actualTower: number) => {
         setActiveTower(actualTower);
     };
 
     const handleDropDisc = (destTower: number) => {
-        // Create a copy from actual state
         const sourceTower = activeTower;
         setActiveTower(null);
         if (sourceTower === destTower || sourceTower === null) return;
@@ -62,7 +61,7 @@ const useGame = () => {
         activeTower,
         winner,
         counterMove,
-        handleStartTopDiscDrag,
+        setActualTower,
         handleDropDisc,
         handleRestartGame,
     };

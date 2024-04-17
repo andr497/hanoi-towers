@@ -1,14 +1,23 @@
 import { TowerProps } from "@/types/general";
+import { useDroppable } from "@dnd-kit/core";
+
 import Disc from "./Disc";
 
-const Tower = ({ id, discs, startTopDiscDrag, dropDisc }: TowerProps) => {
+const Tower = ({ id, discs }: TowerProps) => {
+    const { setNodeRef } = useDroppable({
+        id: `tower-${(id as number) + 1}`,
+        data: {
+            tower: id,
+        },
+    });
+
     return (
         <section
+            ref={setNodeRef}
             className="tower"
             onDragOver={(e) => {
                 e.preventDefault();
             }}
-            onDrop={dropDisc}
         >
             <div className="tower-pillar" style={{ height: 100 + 2.5 * 20 }} />
             <div className="tower-base" />
@@ -18,8 +27,8 @@ const Tower = ({ id, discs, startTopDiscDrag, dropDisc }: TowerProps) => {
                         id={`disc-${size}`}
                         key={`${id}-disc-${i + 1}`}
                         size={size}
+                        tower={id as number}
                         topDisc={i === 0}
-                        startDrag={startTopDiscDrag}
                     />
                 ))}
             </div>

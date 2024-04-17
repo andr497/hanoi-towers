@@ -30,6 +30,11 @@ body {
     min-height: 100vh;
 }
 
+.title {
+    font-size: 2.5em;
+    text-align: center;
+}
+
 .btn {
     background: linear-gradient(to bottom right, #1f6fac, #5aa7ff);
     border: 0;
@@ -50,11 +55,15 @@ body {
     white-space: nowrap;
     &:not([disabled]) {
         &:focus {
-            box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5), -0.125rem -0.01rem 1rem rgba(77, 84, 220, 0.455),
+            box-shadow:
+                0 0 0.25rem rgba(0, 0, 0, 0.5),
+                -0.125rem -0.01rem 1rem rgba(77, 84, 220, 0.455),
                 0.125rem 0.01rem 1rem rgba(153, 172, 234, 0.5);
         }
         &:hover {
-            box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5), -0.125rem -0.01rem 1rem rgba(77, 84, 220, 0.455),
+            box-shadow:
+                0 0 0.25rem rgba(0, 0, 0, 0.5),
+                -0.125rem -0.01rem 1rem rgba(77, 84, 220, 0.455),
                 0.125rem 0.01rem 1rem rgba(153, 172, 234, 0.5);
         }
     }
@@ -89,7 +98,7 @@ body {
                     font-weight: bolder;
                     text-shadow: 2px 1px 10px $primary-color;
                     color: $secondary-color;
-                    animation: fadeIn 300ms;
+                    animation: fadeIn 450ms;
                 }
             }
         }
@@ -110,13 +119,16 @@ body {
 
 @keyframes fadeIn {
     0% {
-        transform: scale(1);
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1);
     }
     50% {
-        transform: scale(1.2);
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1.2);
     }
     100% {
-        transform: scale(1);
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
     }
 }
 
@@ -132,8 +144,14 @@ body {
     background-image: linear-gradient(45deg, transparent 50%, $secondary-color 50%),
         linear-gradient(135deg, $secondary-color 50%, transparent 50%),
         linear-gradient(to right, $primary-color, $secondary-color);
-    background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px), calc(100% - 2.5em) 0.5em;
-    background-size: 5px 5px, 5px 5px, 1px 1.5em;
+    background-position:
+        calc(100% - 20px) calc(1em + 2px),
+        calc(100% - 15px) calc(1em + 2px),
+        calc(100% - 2.5em) 0.5em;
+    background-size:
+        5px 5px,
+        5px 5px,
+        1px 1.5em;
     background-repeat: no-repeat;
     color: white;
     cursor: pointer;
@@ -189,16 +207,16 @@ body {
 }
 
 .dragging {
-    cursor: grabbing;
+    cursor: grabbing !important;
 }
 
 .disc {
-    font-size: 14px;
+    font-size: 0.8em;
     height: 20px;
     vertical-align: center;
     margin-bottom: -1px;
     border-radius: 4px;
-    &[draggable="true"] {
+    &[data-top-disc="true"] {
         cursor: grab;
     }
     &-group {
@@ -219,24 +237,46 @@ body {
 }
 
 @media screen and (max-width: 600px) {
+    .title {
+        font-size: 1.8em;
+        text-align: center;
+    }
+
     .board {
         max-width: 100%;
         display: flex;
         flex-direction: column;
         justify-items: center;
         align-items: center;
+        &-game {
+            display: flex;
+            justify-content: center;
+            &-info {
+                display: flex;
+                justify-content: center;
+                > .label {
+                    &-moves {
+                        font-size: 1.1em;
+                    }
+                    &-win {
+                        font-size: 2em;
+                    }
+                }
+            }
+        }
     }
 
     .tower {
         width: 100px;
 
         &-pillar {
+            height: 140px;
             width: 10px;
         }
     }
 
     .disc {
-        font-size: 12px;
+        font-size: 0.8em;
         height: 18px;
 
         &-group {
@@ -245,6 +285,10 @@ body {
         &-label {
             font-weight: normal;
         }
+    }
+
+    .btn {
+        font-size: 1em;
     }
 
     @for $i from 1 through 8 {

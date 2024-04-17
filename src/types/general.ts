@@ -1,19 +1,22 @@
-import { DragEventHandler } from "react";
+import { ComponentPropsWithoutRef } from "react";
 
 // # Interfaces Type Props
+
+export type onClick = Pick<
+    ComponentPropsWithoutRef<"div">,
+    "onClick"
+>["onClick"];
 
 export interface TowerProps {
     id: number | string;
     discs: number[];
-    startTopDiscDrag: DragEventHandler;
-    dropDisc: DragEventHandler;
 }
 
 export interface DiscProps {
     id: string;
     size: number;
     topDisc: boolean;
-    startDrag: DragEventHandler;
+    tower: number;
 }
 
 // # General Types
