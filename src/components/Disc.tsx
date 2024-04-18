@@ -20,8 +20,6 @@ const Disc = ({ id, size, tower, topDisc }: DiscProps) => {
             },
         });
 
-    console.log(isDragging);
-
     return (
         <div
             ref={setNodeRef}
