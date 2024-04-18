@@ -1,11 +1,4 @@
-import { ComponentPropsWithoutRef } from "react";
-
 // # Interfaces Type Props
-
-export type onClick = Pick<
-    ComponentPropsWithoutRef<"div">,
-    "onClick"
->["onClick"];
 
 export interface TowerProps {
     id: number | string;

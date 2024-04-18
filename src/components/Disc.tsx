@@ -29,6 +29,7 @@ const Disc = ({ id, size, tower, topDisc }: DiscProps) => {
             style={{
                 transform: CSS.Translate.toString(transform),
                 zIndex: 10,
+                touchAction: "none",
             }}
             {...attributes}
             {...listeners}
